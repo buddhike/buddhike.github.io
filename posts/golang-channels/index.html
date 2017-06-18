@@ -102,10 +102,10 @@ Consequently, if we have an event loop written without a guard,
 the goroutine will end-up in a tight loop.</p>
 
 <pre><code>func eventLoop(c &lt;-chan string) {
-	for {
-		s := &lt;-c
-		fmt.Printf(&quot;received %s\n&quot;, s)
-	}
+  for {
+    s := &lt;-c
+    fmt.Printf(&quot;received %s\n&quot;, s)
+  }
 }
 
 c := make(chan string)
@@ -117,14 +117,14 @@ close(c) // puts eventLoop goroutine into a tight loop.
 <p>To fix this, we can rewrite the loop as below.</p>
 
 <pre><code>func eventLoop2(c &lt;-chan string) {
-	for {
-		s, ok := &lt;-c
-		if !ok {
-			fmt.Println(&quot;event loop exited&quot;)
-			return
-		}
-		fmt.Printf(&quot;received %s\n&quot;, s)
-	}
+  for {
+    s, ok := &lt;-c
+    if !ok {
+      fmt.Println(&quot;event loop exited&quot;)
+      return
+    }
+    fmt.Printf(&quot;received %s\n&quot;, s)
+  }
 }
 </code></pre>
 
