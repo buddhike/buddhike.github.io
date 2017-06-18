@@ -1,7 +1,7 @@
 +++
 css = []
 date = "2017-06-18T11:04:09+10:00"
-description = "Useful tips when programming with golang channels."
+description = "Useful tips for programming with golang channels."
 draft = false
 highlight = true
 scripts = []
@@ -13,7 +13,8 @@ title = "Go Channels"
 Channels and goroutines in golang takes a novel approach to composing 
 concurrent programs.
 Correct use of them leads us into writing more understandable 
-concurrent programs.
+concurrent code.
+
 This is a compilation of little things that I find useful when using channels.
 
 ## Fine-grained channel types
@@ -43,7 +44,7 @@ compiler will ensure that they can only either read or write to the channel.
 ## Reading from closed channels
 An attempt to write to a closed channel results in a panic.
 Reading from a closed channel on the other hand has a more forgiving behavior.
-However, this could sometimes cause an adverse effect on a goroutine's behavior. 
+However, this could sometimes create an adverse effect on goroutine's behavior. 
 For example, consider the following event loop implementation.
 Once the channel referenced by ```c``` is closed, calls to read from 
 channel will return the default value for the channel's type 
@@ -66,10 +67,6 @@ close(c) // puts eventLoop goroutine into a tight loop.
 
 We can correct this behavior by observing the second, boolean value returned by 
 the read operation.
- 
-At this point, you may wonder why we could not simply check for ```''```
-in ```s```. We should not forget that ```''``` is a perfectly valid value
-to be sent over ```chan string```.
 
 ```
 func eventLoop(c <-chan string) {
@@ -83,5 +80,9 @@ func eventLoop(c <-chan string) {
   }
 }
 ```
+
+At this point, you may wonder why we could not simply check for ```''```
+in ```s```. We should not forget that ```''``` is a perfectly valid value
+to be sent over ```chan string```.
 
 To be contd...
