@@ -1,0 +1,31 @@
+baseurl = "/"
+languageCode = "en"
+title = "journalctl -u buddyspike -f"
+theme = "hemingway2"
+copyright = "&copy; <a href=\"https://github.com/buddyspike\">buddyspike</a> 2017"
+disqusShortname = "buddyspike"
+googleAnalytics = ""
+description = "Random notes of buddyspike."
+keywords = ["buddyspike", "blog"]
+
+[taxonomies]
+tag = "tags"
+category = "categories"
+
+[params]
+
+[params.highlight]
+style = "github"
+languages = ["go", "dockerfile", "javascript", "js", "c#"]
+
+[[params.social]]
+url = "https://github.com/buddyspike"
+fa_icon = "fa-github"
+
+[[params.social]]
+url = "https://twitter.com/buddyspike28"
+fa_icon = "fa-twitter"
+
+[[params.social]]
+url = "/index.xml"
+fa_icon = "fa-rss"

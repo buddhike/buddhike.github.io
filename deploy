@@ -1,0 +1,43 @@
+#!/bin/sh
+
+set -e
+
+DIR=$(dirname "$0")
+
+if [[ $(git status -s) ]]
+then
+    echo "The working directory is dirty. Please commit any pending changes."
+    exit 1;
+fi
+
+DEFAULT_UPSTREAM="git@github.com:buddyspike/blog.git"
+UPSTREAM=$(git remote -v | grep "upstream" | grep -v grep | cat)
+
+if [ -z "$UPSTREAM" ]
+then
+  echo "Upstream not found. Configuring the upstream."
+  git remote add upstream "$DEFAULT_UPSTREAM" &&
+  git fetch --all
+  echo "Upstream configured to point to $DEFAULT_UPSTREAM."
+fi
+
+echo "Deleting old publication"
+rm -rf public
+mkdir public
+git worktree prune
+
+echo "Checking out gh-pages branch into public"
+git worktree add -B gh-pages public upstream/gh-pages
+rm -rf public/*
+
+echo "Generating site"
+hugo --baseUrl "https://buddyspike.github.io/blog/"
+
+echo "Updating gh-pages branch"
+pushd public && git add --all && git commit -m "Publishing to gh-pages (deploy.sh)"
+
+git push -f | cat
+
+popd
+
+echo "published"
