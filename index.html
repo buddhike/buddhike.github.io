@@ -68,15 +68,18 @@
       <div class="content">
         
 
-<p>Channels and goroutines in golang is a novel approach to composition of
+<p>Channels and goroutines in golang takes a novel approach to composing
 concurrent programs.
-Correct use of them leads us into more understandable concurrent programs.
+Correct use of them leads us into writing more understandable
+concurrent programs.
 This is a compilation of little things that I find useful when using channels.</p>
 
 <h2 id="fine-grained-channel-types">Fine-grained channel types</h2>
 
-<p>Specifying fine-grained channel types makes it easier to reason about
-go routines.
+<p>Passing a reference to a channel as an argument to a goroutine is a
+common way to establish the communication link between them.
+When doing so, specifying a fine-grained channel type, makes it easier
+to reason about go routines.
 Consider two routines, producer and consumer communicating via a channel.</p>
 
 <pre><code>func producer(c chan&lt;- string) {
@@ -98,9 +101,13 @@ compiler will ensure that they can only either read or write to the channel.</p>
 <h2 id="reading-from-closed-channels">Reading from closed channels</h2>
 
 <p>An attempt to write to a closed channel results in a panic.
-However, reading from a closed channel has a more forgiving behaviour.
-Consequently, if we have an event loop written without a guard,
-the goroutine will end-up in a tight loop.</p>
+Reading from a closed channel on the other hand has a more forgiving behavior.
+However, this could sometimes cause an adverse effect on a goroutine&rsquo;s behavior.
+For example, consider the following event loop implementation.
+Once the channel referenced by <code>c</code> is closed, calls to read from
+channel will return the default value for the channel&rsquo;s type
+(<code>''</code> in the case below).
+Net result is that the goroutine is now in a tight loop.</p>
 
 <pre><code>func eventLoop(c &lt;-chan string) {
   for {
@@ -115,7 +122,12 @@ c &lt;- &quot;hello&quot; // prints hello
 close(c) // puts eventLoop goroutine into a tight loop.
 </code></pre>
 
-<p>To fix this, we can rewrite the loop as below.</p>
+<p>We can correct this behavior by observing the second, boolean value returned by
+the read operation.</p>
+
+<p>At this point, you may wonder why we could not simply check for <code>''</code>
+in <code>s</code>. We should not forget that <code>''</code> is a perfectly valid value
+to be sent over <code>chan string</code>.</p>
 
 <pre><code>func eventLoop(c &lt;-chan string) {
   for {
