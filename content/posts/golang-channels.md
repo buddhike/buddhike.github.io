@@ -45,10 +45,10 @@ the goroutine will end-up in a tight loop.
 
 ```
 func eventLoop(c <-chan string) {
-	for {
-		s := <-c
-		fmt.Printf("received %s\n", s)
-	}
+  for {
+    s := <-c
+    fmt.Printf("received %s\n", s)
+  }
 }
 
 c := make(chan string)
@@ -61,14 +61,14 @@ To fix this, we can rewrite the loop as below.
 
 ```
 func eventLoop2(c <-chan string) {
-	for {
-		s, ok := <-c
-		if !ok {
-			fmt.Println("event loop exited")
-			return
-		}
-		fmt.Printf("received %s\n", s)
-	}
+  for {
+    s, ok := <-c
+    if !ok {
+      fmt.Println("event loop exited")
+      return
+    }
+    fmt.Printf("received %s\n", s)
+  }
 }
 ```
 
