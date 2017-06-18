@@ -13,6 +13,24 @@
   </url>
   
   <url>
+    <loc>https://buddyspike.github.io/blog/tags/channels/</loc>
+    <lastmod>2017-06-18T11:04:09+10:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://buddyspike.github.io/blog/tags/concurrency/</loc>
+    <lastmod>2017-06-18T11:04:09+10:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://buddyspike.github.io/blog/tags/go/</loc>
+    <lastmod>2017-06-18T11:04:09+10:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://buddyspike.github.io/blog/posts/</loc>
     <lastmod>2017-06-18T11:04:09+10:00</lastmod>
     <priority>0</priority>
@@ -20,6 +38,13 @@
   
   <url>
     <loc>https://buddyspike.github.io/blog/tags/</loc>
+    <lastmod>2017-06-18T11:04:09+10:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://buddyspike.github.io/blog/tags/tips/</loc>
+    <lastmod>2017-06-18T11:04:09+10:00</lastmod>
     <priority>0</priority>
   </url>
   

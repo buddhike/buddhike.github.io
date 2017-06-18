@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Posts on tail -f /var/log/buddyspike</title>
-    <link>https://buddyspike.github.io/blog/posts/</link>
-    <description>Recent content in Posts on tail -f /var/log/buddyspike</description>
+    <title>Tips on tail -f /var/log/buddyspike</title>
+    <link>https://buddyspike.github.io/blog/tags/tips/</link>
+    <description>Recent content in Tips on tail -f /var/log/buddyspike</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>&amp;copy; &lt;a href=&#34;https://github.com/buddyspike&#34;&gt;buddyspike&lt;/a&gt; 2017</copyright>
     <lastBuildDate>Sun, 18 Jun 2017 11:04:09 +1000</lastBuildDate>
     
-	<atom:link href="https://buddyspike.github.io/blog/posts/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://buddyspike.github.io/blog/tags/tips/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
