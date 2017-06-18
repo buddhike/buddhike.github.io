@@ -5,6 +5,7 @@ description = "Useful tips for programming with golang channels."
 draft = false
 highlight = true
 scripts = []
+keywords = ["go", "channels", "concurrency", "tips", "golang", "goroutines"]
 tags = ["go", "channels", "concurrency", "tips"]
 title = "Go Channels"
 
