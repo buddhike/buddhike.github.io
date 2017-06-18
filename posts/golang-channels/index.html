@@ -70,8 +70,9 @@
 <p>Channels and goroutines in golang takes a novel approach to composing
 concurrent programs.
 Correct use of them leads us into writing more understandable
-concurrent programs.
-This is a compilation of little things that I find useful when using channels.</p>
+concurrent code.</p>
+
+<p>This is a compilation of little things that I find useful when using channels.</p>
 
 <h2 id="fine-grained-channel-types">Fine-grained channel types</h2>
 
@@ -101,7 +102,7 @@ compiler will ensure that they can only either read or write to the channel.</p>
 
 <p>An attempt to write to a closed channel results in a panic.
 Reading from a closed channel on the other hand has a more forgiving behavior.
-However, this could sometimes cause an adverse effect on a goroutine&rsquo;s behavior.
+However, this could sometimes create an adverse effect on goroutine&rsquo;s behavior.
 For example, consider the following event loop implementation.
 Once the channel referenced by <code>c</code> is closed, calls to read from
 channel will return the default value for the channel&rsquo;s type
@@ -124,10 +125,6 @@ close(c) // puts eventLoop goroutine into a tight loop.
 <p>We can correct this behavior by observing the second, boolean value returned by
 the read operation.</p>
 
-<p>At this point, you may wonder why we could not simply check for <code>''</code>
-in <code>s</code>. We should not forget that <code>''</code> is a perfectly valid value
-to be sent over <code>chan string</code>.</p>
-
 <pre><code>func eventLoop(c &lt;-chan string) {
   for {
     s, ok := &lt;-c
@@ -139,6 +136,10 @@ to be sent over <code>chan string</code>.</p>
   }
 }
 </code></pre>
+
+<p>At this point, you may wonder why we could not simply check for <code>''</code>
+in <code>s</code>. We should not forget that <code>''</code> is a perfectly valid value
+to be sent over <code>chan string</code>.</p>
 
 <p>To be contd&hellip;</p>
 
