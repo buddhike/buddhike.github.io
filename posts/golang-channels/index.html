@@ -4,8 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta content="" name="keywords">
-<meta content="Go Channels - journalctl -u buddyspike -f" property="og:title">
-<title>Go Channels | journalctl -u buddyspike -f</title>
+<meta content="Go Channels - tail -f /var/log/buddyspike" property="og:title">
+<title>Go Channels | tail -f /var/log/buddyspike</title>
 <link rel="stylesheet" href="https://buddyspike.github.io/blog//css/style.css">
 <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 
@@ -16,7 +16,7 @@
   <div class="container">
     <nav class="nav">
       <div class="nav-left">
-        <a class="nav-item" href="https://buddyspike.github.io/blog/"><h1 class="title is-4">journalctl -u buddyspike -f</h1></a>
+        <a class="nav-item" href="https://buddyspike.github.io/blog/"><h1 class="title is-4">tail -f /var/log/buddyspike</h1></a>
       </div>
       <div class="nav-right">
         <nav class="nav-item level is-mobile">
@@ -52,6 +52,37 @@
     
     <div class="content">
       
+
+<p>Channels and go routines in golang is a novel approach to composition of
+concurrent programs.
+Correct use of them make it a lot easier to reason about concurrent
+programs.
+This is a compilation of little things that I find useful when using channels.</p>
+
+<h2 id="fine-grained-channel-types">Fine-grained channel types</h2>
+
+<p>Specifying fine-grained channel types makes it easier to reason about
+go routines.
+Consider two routines, producer and consumer communicating via a channel.</p>
+
+<pre><code>func producer(c chan&lt;- string) {
+  &lt;-c // compile error
+}
+
+func consumer(c &lt;-chan string) {
+  c&lt;- &quot;a&quot; // compile error
+}
+
+c := make(chan string)
+go producer(c)
+go consumer(c)
+</code></pre>
+
+<p>With fine-grained channel types in <code>producer</code> and <code>consumer</code> functions,
+compiler will ensure that they can only either read or write to the channel.</p>
+
+<p>To be contd&hellip;</p>
+
     </div>
   </div>
 </section>
@@ -82,12 +113,6 @@
 <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/languages/go.min.js"></script>
 
 <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/languages/dockerfile.min.js"></script>
-
-<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/languages/javascript.min.js"></script>
-
-<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/languages/js.min.js"></script>
-
-<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/languages/c#.min.js"></script>
 
 <script>hljs.initHighlightingOnLoad();</script>
 

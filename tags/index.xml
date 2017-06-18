@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Tags on journalctl -u buddyspike -f</title>
+    <title>Tags on tail -f /var/log/buddyspike</title>
     <link>https://buddyspike.github.io/blog/tags/</link>
-    <description>Recent content in Tags on journalctl -u buddyspike -f</description>
+    <description>Recent content in Tags on tail -f /var/log/buddyspike</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>&amp;copy; &lt;a href=&#34;https://github.com/buddyspike&#34;&gt;buddyspike&lt;/a&gt; 2017</copyright>
