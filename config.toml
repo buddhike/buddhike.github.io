@@ -4,7 +4,7 @@ title = "tail -f /var/log/buddyspike"
 theme = "hemingway2"
 copyright = "&copy; <a href=\"https://github.com/buddyspike\">buddyspike</a> 2017"
 disqusShortname = "buddyspike"
-googleAnalytics = ""
+googleAnalytics = "UA-57052137-3"
 description = "Random notes of buddyspike."
 keywords = ["buddyspike", "blog"]
 
