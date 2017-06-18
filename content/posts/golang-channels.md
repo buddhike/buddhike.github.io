@@ -10,14 +10,17 @@ title = "Go Channels"
 
 +++
 
-Channels and goroutines in golang is a novel approach to composition of 
+Channels and goroutines in golang takes a novel approach to composing 
 concurrent programs.
-Correct use of them leads us into more understandable concurrent programs.
+Correct use of them leads us into writing more understandable 
+concurrent programs.
 This is a compilation of little things that I find useful when using channels.
 
 ## Fine-grained channel types
-Specifying fine-grained channel types makes it easier to reason about 
-go routines. 
+Passing a reference to a channel as an argument to a goroutine is a 
+common way to establish the communication link between them.
+When doing so, specifying a fine-grained channel type, makes it easier 
+to reason about go routines. 
 Consider two routines, producer and consumer communicating via a channel.
 
 ```
@@ -39,9 +42,13 @@ compiler will ensure that they can only either read or write to the channel.
 
 ## Reading from closed channels
 An attempt to write to a closed channel results in a panic.
-However, reading from a closed channel has a more forgiving behaviour.
-Consequently, if we have an event loop written without a guard, 
-the goroutine will end-up in a tight loop.
+Reading from a closed channel on the other hand has a more forgiving behavior.
+However, this could sometimes cause an adverse effect on a goroutine's behavior. 
+For example, consider the following event loop implementation.
+Once the channel referenced by ```c``` is closed, calls to read from 
+channel will return the default value for the channel's type 
+(```''``` in the case below). 
+Net result is that the goroutine is now in a tight loop.
 
 ```
 func eventLoop(c <-chan string) {
@@ -57,7 +64,12 @@ c <- "hello" // prints hello
 close(c) // puts eventLoop goroutine into a tight loop.
 ```
 
-To fix this, we can rewrite the loop as below.
+We can correct this behavior by observing the second, boolean value returned by 
+the read operation.
+ 
+At this point, you may wonder why we could not simply check for ```''```
+in ```s```. We should not forget that ```''``` is a perfectly valid value
+to be sent over ```chan string```.
 
 ```
 func eventLoop(c <-chan string) {
