@@ -12,8 +12,7 @@ title = "Go Channels"
 
 Channels and goroutines in golang is a novel approach to composition of 
 concurrent programs.
-Correct use of them make it a lot easier to reason about concurrent
-programs.
+Correct use of them leads us into more understandable concurrent programs.
 This is a compilation of little things that I find useful when using channels.
 
 ## Fine-grained channel types
