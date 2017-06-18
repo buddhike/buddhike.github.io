@@ -1,6 +1,6 @@
 baseurl = "/"
 languageCode = "en"
-title = "journalctl -u buddyspike -f"
+title = "tail -f /var/log/buddyspike"
 theme = "hemingway2"
 copyright = "&copy; <a href=\"https://github.com/buddyspike\">buddyspike</a> 2017"
 disqusShortname = "buddyspike"
@@ -16,7 +16,7 @@ category = "categories"
 
 [params.highlight]
 style = "github"
-languages = ["go", "dockerfile", "javascript", "js", "c#"]
+languages = ["go", "dockerfile" ] 
 
 [[params.social]]
 url = "https://github.com/buddyspike"
