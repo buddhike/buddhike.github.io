@@ -40,7 +40,7 @@ compiler will ensure that they can only either read or write to the channel.
 
 ## Reading from closed channels
 An attempt to write to a closed channel results in a panic.
-However, reading from a closed channel has a different behaviour.
+However, reading from a closed channel has a more forgiving behaviour.
 Consequently, if we have an event loop written without a guard, 
 the goroutine will end-up in a tight loop.
 
