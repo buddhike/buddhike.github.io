@@ -60,7 +60,7 @@ close(c) // puts eventLoop goroutine into a tight loop.
 To fix this, we can rewrite the loop as below.
 
 ```
-func eventLoop2(c <-chan string) {
+func eventLoop(c <-chan string) {
   for {
     s, ok := <-c
     if !ok {
