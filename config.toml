@@ -11,7 +11,7 @@ paginate = 5
 	tutorial = "tutorials"
 
 [params]
-	showglobe = true
+	showglobe = false
 	favicon = "favicon.ico"
 	analytics = "UA-57052137-3"
 	email = "buddyspike@geeksdiary.com"
