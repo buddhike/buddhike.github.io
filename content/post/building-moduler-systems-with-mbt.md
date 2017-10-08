@@ -158,7 +158,7 @@ generate a list of modules and their version in master branch.
 mbt apply branch master --to [path to template] --in [path to repo]
 ```
 
-A text file with list of modules and their version might be of little use. But the same
+A text file with a list of modules and their version might be of little use. But the same
 technique can be used to generate more useful artifacts such as
 
 - Custom deployment scripts (e.g. Powershell scripts that configures modules in IIS)
