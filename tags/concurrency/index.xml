@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Concurrency on tail -f /var/log/buddyspike</title>
+    <title>Concurrency on buddyspike</title>
     <link>https://buddyspike.github.io/blog/tags/concurrency/</link>
-    <description>Recent content in Concurrency on tail -f /var/log/buddyspike</description>
+    <description>Recent content in Concurrency on buddyspike</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en</language>
-    <copyright>&amp;copy; &lt;a href=&#34;https://github.com/buddyspike&#34;&gt;buddyspike&lt;/a&gt; 2017</copyright>
+    <language>en-us</language>
     <lastBuildDate>Sun, 18 Jun 2017 11:04:09 +1000</lastBuildDate>
     
 	<atom:link href="https://buddyspike.github.io/blog/tags/concurrency/index.xml" rel="self" type="application/rss+xml" />
@@ -14,10 +13,10 @@
     
     <item>
       <title>Go Channels</title>
-      <link>https://buddyspike.github.io/blog/posts/golang-channels/</link>
+      <link>https://buddyspike.github.io/blog/post/golang-channels/</link>
       <pubDate>Sun, 18 Jun 2017 11:04:09 +1000</pubDate>
       
-      <guid>https://buddyspike.github.io/blog/posts/golang-channels/</guid>
+      <guid>https://buddyspike.github.io/blog/post/golang-channels/</guid>
       <description>Channels and goroutines in golang takes a novel approach to composing concurrent programs. Correct use of them leads us into writing more understandable concurrent code.
 This is a compilation of little things that I find useful when using channels.
 Fine-grained channel types Passing a reference to a channel as an argument to a goroutine is a common way to establish the communication link between them. When doing so, specifying a fine-grained channel type, makes it easier to reason about go routines.</description>

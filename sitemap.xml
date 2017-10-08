@@ -3,13 +3,8 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://buddyspike.github.io/blog/posts/golang-channels/</loc>
+    <loc>https://buddyspike.github.io/blog/post/golang-channels/</loc>
     <lastmod>2017-06-18T11:04:09+10:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://buddyspike.github.io/blog/categories/</loc>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -31,7 +26,7 @@
   </url>
   
   <url>
-    <loc>https://buddyspike.github.io/blog/posts/</loc>
+    <loc>https://buddyspike.github.io/blog/post/</loc>
     <lastmod>2017-06-18T11:04:09+10:00</lastmod>
     <priority>0</priority>
   </url>
@@ -45,6 +40,11 @@
   <url>
     <loc>https://buddyspike.github.io/blog/tags/tips/</loc>
     <lastmod>2017-06-18T11:04:09+10:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://buddyspike.github.io/blog/tutorials/</loc>
     <priority>0</priority>
   </url>
   

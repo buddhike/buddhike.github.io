@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article# website: http://ogp.me/ns/website#">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+    <meta name="description" content="Useful tips for programming with golang channels.">
+    <meta property="og:title" content="Go Channels">
+    
+    <meta property="og:type" content="article">
+    <meta property="article:published_time" content="2017-06-18">
+    
+    <meta property="og:description" content="Useful tips for programming with golang channels.">
+    <meta property="og:url" content="https://buddyspike.github.io/blog/post/golang-channels/">
+    <meta property="og:site_name" content="buddyspike">
+    
+    <meta property="og:tags" content="go">
+    
+    <meta property="og:tags" content="channels">
+    
+    <meta property="og:tags" content="concurrency">
+    
+    <meta property="og:tags" content="tips">
+    
+    <meta name="generator" content="Hugo 0.23" />
+    <title>Go Channels &middot; buddyspike</title>
+    
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.7/styles/default.min.css">
+    
+    <link rel="stylesheet" href="https://buddyspike.github.io/blog/css/style.css">
+    
+    <link href="https://buddyspike.github.io/blog/index.xml" rel="alternate" type="application/rss+xml" title="buddyspike" />
+    
+    
+    <link rel="icon" href="https://buddyspike.github.io/blog/favicon.ico" />
+    
+
+    
+    
+</head>
+<body>
+
+<nav class="navbar navbar-default navbar-fixed-top visible-xs">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			
+				<a class="navbar-brand" href="https://buddyspike.github.io/blog/">buddyspike</a>
+			
+		</div>
+		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			<ul class="nav navbar-nav">
+				
+				
+					<li><a href="https://buddyspike.github.io/blog/about">About</a></li>
+				
+					<li><a href="https://buddyspike.github.io/blog/">Blog</a></li>
+				
+			</ul>
+		</div>
+	</div>
+</nav>
+<div class="container-fluid">
+	<div class="row">
+		<div id="menu" class="hidden-xs col-sm-4 col-md-3">
+	<div id="menu-content" class="vertical-align">
+		
+			<h1 class="text-center"><a href="https://buddyspike.github.io/blog/">buddyspike</a></h1>
+		
+		
+		
+		
+		
+		<div id="social" class="text-center">
+			
+				<a href="https://github.com/buddyspike"><i class="fa fa-github fa-2x"></i></a>
+			
+				<a href="https://twitter.com/buddyspike28"><i class="fa fa-twitter fa-2x"></i></a>
+			
+
+			<a href="mailto:buddyspike@geeksdiary.com"><i class="fa fa-envelope-o fa-2x"></i></a>
+		</div>
+		<div id="links" class="text-center">
+			
+			
+				<a href="https://buddyspike.github.io/blog/about">About</a>
+			
+				<a href="https://buddyspike.github.io/blog/">Blog</a>
+			
+		</div>
+	</div>
+</div>
+
+		<div id="content" class="col-xs-12 col-sm-8 col-md-9">
+			<div class="row">
+				<div id="post" class="col-sm-offset-1 col-sm-10 col-md-10 col-lg-8">
+
+<main>
+	<header>
+		<h1>Go Channels</h1>
+	</header>
+
+	<article>
+		
+
+<p>Channels and goroutines in golang takes a novel approach to composing
+concurrent programs.
+Correct use of them leads us into writing more understandable
+concurrent code.</p>
+
+<p>This is a compilation of little things that I find useful when using channels.</p>
+
+<h2 id="fine-grained-channel-types">Fine-grained channel types</h2>
+
+<p>Passing a reference to a channel as an argument to a goroutine is a
+common way to establish the communication link between them.
+When doing so, specifying a fine-grained channel type, makes it easier
+to reason about go routines.
+Consider two routines, producer and consumer communicating via a channel.</p>
+
+<pre><code>func producer(c chan&lt;- string) {
+  &lt;-c // compile error
+}
+
+func consumer(c &lt;-chan string) {
+  c&lt;- &quot;a&quot; // compile error
+}
+
+c := make(chan string)
+go producer(c)
+go consumer(c)
+</code></pre>
+
+<p>With fine-grained channel types in <code>producer</code> and <code>consumer</code> functions,
+compiler will ensure that they can only either read or write to the channel.</p>
+
+<h2 id="reading-from-closed-channels">Reading from closed channels</h2>
+
+<p>An attempt to write to a closed channel results in a panic.
+Reading from a closed channel on the other hand has a more forgiving behavior.
+However, this could sometimes create an adverse effect on goroutine&rsquo;s behavior.
+For example, consider the following event loop implementation.
+Once the channel referenced by <code>c</code> is closed, calls to read from
+channel will return the default value for the channel&rsquo;s type
+(<code>''</code> in the case below).
+Net result is that the goroutine is now in a tight loop.</p>
+
+<pre><code>func eventLoop(c &lt;-chan string) {
+  for {
+    s := &lt;-c
+    fmt.Printf(&quot;received %s\n&quot;, s)
+  }
+}
+
+c := make(chan string)
+go eventLoop(c)
+c &lt;- &quot;hello&quot; // prints hello
+close(c) // puts eventLoop goroutine into a tight loop.
+</code></pre>
+
+<p>We can correct this behavior by observing the second, boolean value returned by
+the read operation.</p>
+
+<pre><code>func eventLoop(c &lt;-chan string) {
+  for {
+    s, ok := &lt;-c
+    if !ok {
+      fmt.Println(&quot;event loop exited&quot;)
+      return
+    }
+    fmt.Printf(&quot;received %s\n&quot;, s)
+  }
+}
+</code></pre>
+
+<p>At this point, you may wonder why we could not simply check for <code>''</code>
+in <code>s</code>. We should not forget that <code>''</code> is a perfectly valid value
+to be sent over <code>chan string</code>.</p>
+
+<p>To be contd&hellip;</p>
+
+	</article>
+</main>
+
+<div id="bottom-nav" class="text-center center-block">
+	<a href=" https://buddyspike.github.io/blog/" class="btn btn-default"><i class="fa fa-home"></i> Home</a>
+</div>
+
+
+  <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'buddyspike';
+    var disqus_identifier = 'https:\/\/buddyspike.github.io\/blog\/post\/golang-channels\/';
+    var disqus_title = 'Go Channels';
+    var disqus_url = 'https:\/\/buddyspike.github.io\/blog\/post\/golang-channels\/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+  </div>
+  
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-57052137-3', 'auto');
+    ga('send', 'pageview');
+    window.baseURL = "https:\/\/buddyspike.github.io\/blog\/";
+  </script>
+  
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.2/js/bootstrap.min.js"></script>
+  
+  <script src="//cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/topojson/1.6.9/topojson.min.js"></script>
+  
+  
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.7/highlight.min.js"></script>
+  
+  <script src="https://buddyspike.github.io/blog//js/App.js"></script>
+  
+</body>
+</html>
