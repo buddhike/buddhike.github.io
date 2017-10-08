@@ -1,31 +1,39 @@
 baseurl = "/"
-languageCode = "en"
-title = "tail -f /var/log/buddyspike"
-theme = "hemingway2"
-copyright = "&copy; <a href=\"https://github.com/buddyspike\">buddyspike</a> 2017"
+theme = "hugo-geo"
+relativeURLs = false
+languageCode = "en-us"
+title = "Random thoughts from buddyspike"
 disqusShortname = "buddyspike"
-googleAnalytics = "UA-57052137-3"
-description = "Random notes of buddyspike."
-keywords = ["buddyspike", "blog"]
+paginate = 5
 
 [taxonomies]
-tag = "tags"
-category = "categories"
+	tag = "tags"
+	tutorial = "tutorials"
 
 [params]
+	showglobe = true
+	favicon = "favicon.ico"
+	analytics = "UA-57052137-3"
+	email = "buddyspike@geeksdiary.com"
 
-[params.highlight]
-style = "github"
-languages = ["go", "dockerfile" ] 
+	# profilepic = "img/me.png"
+	
+	title = "buddyspike"
+	header = "tail -f /var/log/buddyspike"
 
-[[params.social]]
-url = "https://github.com/buddyspike"
-fa_icon = "fa-github"
+	# Social buttons for sidebar
+	# Each of these are optional
+	[[params.socialbuttons]]
+	faicon = "github"
+	url = "https://github.com/buddyspike"
+	[[params.socialbuttons]]
+	faicon = "twitter"
+	url = "https://twitter.com/buddyspike28"
 
-[[params.social]]
-url = "https://twitter.com/buddyspike28"
-fa_icon = "fa-twitter"
-
-[[params.social]]
-url = "/index.xml"
-fa_icon = "fa-rss"
+	[[params.navlinks]]
+	name = "About"
+	url = "about"
+	
+	[[params.navlinks]]
+	name = "Blog"
+	url = ""
