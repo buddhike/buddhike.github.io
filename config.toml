@@ -12,7 +12,7 @@ paginate = 5
 
 [params]
 	showglobe = false
-	favicon = "favicon.ico"
+	favicon = "/img/me.png"
 	analytics = "UA-57052137-3"
 	email = "buddyspike@geeksdiary.com"
 
