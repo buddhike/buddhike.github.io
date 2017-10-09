@@ -38,7 +38,7 @@ terms of how they are organised.
 
 Both approaches require some tooling to establish the state of the system.
 Chromium for example consists of multiple independent modules 
-such as [V8](https://chromium.googlesource.com/v8/v8.git) and [webrtc](https://webrtc.googlesource.com/src.git) uses [depot_tools](https://chromium.googlesource.com/chromium/tools/depot_tools/+/master/fetch.py) to archive this.    
+such as [V8](https://chromium.googlesource.com/v8/v8.git) and [webrtc](https://webrtc.googlesource.com/src.git) uses [depot_tools](https://chromium.googlesource.com/chromium/tools/depot_tools/+/master/fetch.py) to achieve this.    
  
 For the rest of this post our focus is going to be on [mbt](https://github.com/buddyspike/mbt) which 
 is a tool for building modular systems stored in a single git repository.
