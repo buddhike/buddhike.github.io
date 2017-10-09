@@ -17,7 +17,8 @@
       <pubDate>Sat, 07 Oct 2017 09:28:47 +1100</pubDate>
       
       <guid>https://buddyspike.github.io/blog/post/building-modular-systems-with-mbt/</guid>
-      <description>Large systems are usually constructed by composing many small systems. My favorite browser for example distributes its work across different processes while I&amp;rsquo;m conveniently enjoying my morning dose of hacker news. This also applies to server side systems with the added complexity of modules being distributed across multiple machines, built using different tool-chains etc.
+      <description>Large systems are usually constructed by composing many small systems. My favorite browser for example distributes its work across different processes while I&amp;rsquo;m conveniently enjoying my morning dose of hacker news.
+This also applies to server side systems with the added complexity of modules being distributed across multiple machines, built using different tool-chains etc.
 Modularisation is great as it gives us the ability to reduce coupling and cohesion. However, ultimately, we are only interested in the overall state of the system rather than the individual modules.</description>
     </item>
     
