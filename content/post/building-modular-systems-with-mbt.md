@@ -1,7 +1,7 @@
 +++
 date = "2017-10-07T09:28:47+11:00"
 title = "Building Modular Systems with mbt"
-description = "Monorepo build tool - mbt is a utility for building a large repository with multiple modules."
+description = "Monorepo build tool - mbt is a utility for building a large git repositories with multiple modules."
 draft = "false"
 highlight = "true"
 keywords = ["mbt", "build", "dev-ops", "monorepo"]
