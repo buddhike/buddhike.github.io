@@ -12,7 +12,7 @@ Large systems are usually constructed by composing many small systems. My favori
 browser for example distributes its work across different processes while
 I'm conveniently enjoying my morning dose of hacker news. 
 
-![Chromium task manager](/blog/img/chromium-task-manager.png)
+![Chromium task manager](/building-modular-systems-with-mbt/chromium-task-manager.png)
 
 This also applies to server side systems with the added complexity of 
 modules being distributed across multiple machines, built using different 
