@@ -170,7 +170,7 @@ technique can be used to generate more useful artifacts such as
 - Azure Resource Templates
 - Kubernetes deployment files
  
-### Wrap up
+## Wrap up
 That's a quick tour of motivations behind mbt. 
 It is still quite young and under a lot of churn. 
 Do you think mbt would help you with a build problem you've been wrestling with lately?
