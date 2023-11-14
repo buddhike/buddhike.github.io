@@ -98,7 +98,7 @@ With the adjusted connection pool, we managed to lower the CPU utilisation signi
 ## Points for Consideration
 As we discussed, tuning of HTTP connection pool can enhance the performance of your high throughput, low latency S3 workload. However, there are number of things to consider when tweaking these knobs.
 
-## Ideal Connection Pool Settings
+### Ideal Connection Pool Settings
 An important to question to ask is, what should be the value for `MaxIdleConnsPerHost`?. Answer really depends on the number of CPUs in the host and the latency of a single operation. Number of CPUs defines how many concurrent requests can be dispatched any instance. Latency of an operations gives an idea of how many requests can be dispatched before the previously issued requests return. Finding the right multiplier requires testing your workload with different settings.
 
 At this point, avid readers may have questioned with increased connection pool, why do we have very large number of connections. Specially shouldn’t it use just 128 connections when the test code is just 128 Go routines invoking `GetObject` in a tight loop? As it turns out, connection pooling (i.e. HTTP Keep Alive) is not purely a client side configuration. Servers can also request the client to close them. In our case, S3 servers periodically emit `Connection: close` header in its response (each time I measured this, I observed `Connection: close` header after 100 responses via a connection). I found it somewhat difficult to diagnose this behaviour without attaching a debugger because Go http package removes this header in response (Figure 6).
@@ -106,7 +106,7 @@ At this point, avid readers may have questioned with increased connection pool, 
 ![S3 forcing the clients to drop connections via Connection: close header](/tune-http-connection-pool-for-s3/s3-forcing-the-clients-to-drop-connections-via-connection-close-header.webp)
 *Figure 6 S3 forcing the clients to drop connections via Connection: close header*
 
-## S3 HTTP 503 Service Unavailable
+### S3 HTTP 503 Service Unavailable
 During one iteration, I observed a large number of HTTP 503 Service Unavailable responses from S3 (not 503 Slow down) resulting a spike in response times. This response is described in [AWS documentation](https://docs.aws.amazon.com/AmazonS3/latest/userguide/optimizing-performance-design-patterns.html).
 
 >Amazon S3 automatically scales in response to sustained new request rates, dynamically optimizing performance. While Amazon S3 is internally optimizing for a new request rate, you will receive HTTP 503 request responses temporarily until the optimization completes. After Amazon S3 internally optimizes performance for the new request rate, all requests are generally served without retries.
@@ -115,7 +115,7 @@ During one iteration, I observed a large number of HTTP 503 Service Unavailable 
 
 Retry logic required is already built into AWS SDK. However, if we are aggressively pooling connections and S3 is not sending Connection: close header in the error response, it is possible that we may end-up reaching the same server instead of connecting to a new as recommended.
 
-## DNS Lookup
+### DNS Lookup
 One thing really peculiar about our test is DNS resolution (figure 7). At times, p99 gets significantly high. All of above tests were run with an S3 Gateway endpoint in the VPC. With a Gateway endpoint, we still use S3 public DNS name. Therefore, when the record is resolved, it would have to jump through VPC resolver to the one in S3. Another interesting fact is that S3 defines a very small TTL for DNS records to control the distribution of requests (Figure 8). As a result, in our case clients are likely to perform the forwarded DNS query more frequently. Combining these two observations, I wanted to see if there’s a way to reduce the variations in DNS lookups.
 
 I changed my endpoint type to an interface endpoint and re-ran a `dig` to find out how it’s service endpoint it resolved. As we can see in figure 9, it has a higher TTL and the throughput(Figure 10a and 10b) was more consistent. Consider an interface endpoint if its benefits outweighs the additional cost.
