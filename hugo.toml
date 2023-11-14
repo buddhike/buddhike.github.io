@@ -5,8 +5,8 @@ theme = "poison"
 
 [services]
     [services.googleAnalytics]
-        ID = 'UA-57052137-3'
-        
+        ID = 'G-Z114PR77K5'
+
 [params]
     brand = "Buddhike's Blog"                      # name of your site - appears in the sidebar
     brand_image = "/img/me.jpeg"    # path to the image shown in the sidebar
