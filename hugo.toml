@@ -3,6 +3,10 @@ languageCode = 'en-us'
 title = "Buddhike's Blog"
 theme = "poison"
 
+[services]
+    [services.googleAnalytics]
+        ID = 'UA-57052137-3'
+        
 [params]
     brand = "Buddhike's Blog"                      # name of your site - appears in the sidebar
     brand_image = "/img/me.jpeg"    # path to the image shown in the sidebar
