@@ -76,5 +76,5 @@ We should be able to add or remove consumers to process data in the stream based
 Each one of these goals required much in depth discussion however, in this 
 introductory blog post, I wanted to share a glimpse of what we are about to embark on and receive early feedback. 
 
-In the next post we will discuss how we are planning to develop `libvegas` in 
-`Go`.
+In the next couple of posts we will discuss how we chose programming language to
+build `libvegas`. We will start by looking at the [deployment models](/posts/journey-of-libvegas-part-2-deployment-model) considered. 
