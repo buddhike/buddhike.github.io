@@ -10,7 +10,7 @@ tags = ["aws", "kinesis", "client", "streaming", "streaming-analytics", "go"]
 
 A few years ago, I wanted to dabble with an AWS service that I hadn't used before. One day, I tried Amazon Kinesis Data Streams (KDS). I was shocked
 by how little has been said about it. It's a stream storage service that
-is completely serverless, can auto scale (both in and out without moving data around) and it's designed for applications with high throughout and low latency in mind 🤯.
+is completely serverless, can auto scale (both in and out with a single API call) and it's designed for applications with high throughout and low latency in mind 🤯.
 
 Having worked in large development teams before, another thing that I was 
 impressed by was the fact that with KDS you can design and plan your workloads
