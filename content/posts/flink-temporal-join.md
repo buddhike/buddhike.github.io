@@ -10,6 +10,8 @@ tags = ["streaming", "streaming-processing", "flink", "temporal-join"]
 
 # Temporal join in Apache Flink
 
+## Background
+
 Event time based temporal join in Flink are handy when we want to join two streams at a common point in time. In this blog post I'm going to discuss how temporal joins work in Flink (as of v1.18). This study is based on `TemporalRowTimeJoinOperator` [implementation](https://github.com/apache/flink/blob/547e4b53ebe36c39066adcf3a98123a1f7890c15/flink-table/flink-table-runtime/src/main/java/org/apache/flink/table/runtime/operators/join/temporal/TemporalRowTimeJoinOperator.java#L4).
 
 Let's start with a hypothetical scenario where we have orders and exchange rates coming into two data streams in Kinesis. We want to emit an enriched stream where order value is converted to local currency (AUD). We begin with the schema.
@@ -71,6 +73,8 @@ LEFT JOIN rates FOR SYSTEM_TIME AS OF o.ts AS r ON o.currency_id = r.currency_id
 ```
 
 Here we are essentially saying that for each element in `orders` stream, find the ***latest*** currency rate in `rates` stream with a matching `currency_id` and use it to calculate `total_aud` field in the output. When choosing ***latest*** currency rate we want it to be latest relatively to order's timestamp. For instance, if we receive two exchange rate updates at 8:00am and 9:00am consecutively, we want to use the rate published at 8:00am for all orders placed between 8:00am and 8:59am. Any orders came at 9:00am or after should use the rate published at 9:00am.
+
+## Temporal Join Implementation
 
 If `orders` and `rates` were static data sets (e.g. tables in a relational db), we know that this operation is somewhat straightforward. In this case we have two continuous streams and number of questions may pop into our curious minds. For example, how does it scan rates efficiently? Can it operate with consistent performance as our streams grow towards infinity? What happens when data arrives out of order or delayed? I hope the following pictorial narrative of algorithm implemented in temporal join operator will help us answer those questions.
 
