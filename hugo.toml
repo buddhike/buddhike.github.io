@@ -2,10 +2,14 @@ baseURL = 'https://buddhike.github.io/'
 languageCode = 'en-us'
 title = "Buddhike's Blog"
 theme = "poison"
+DisqusShortName = "buddhike"
+disqusShortName = "buddhike"
 
 [services]
     [services.googleAnalytics]
         ID = 'G-Z114PR77K5'
+    [services.disqus]
+        shortname = "buddhike"
 
 [params]
     brand = "Buddhike's Blog"                      # name of your site - appears in the sidebar
@@ -13,7 +17,6 @@ theme = "poison"
     description = "Random musings on Software Development" # Used as default meta description if not specified in front matter
     dark_mode = false                      # optional - defaults to false
     # favicon = "favicon.png"             # path to favicon (defaults to favicon.png)
-    disqusShortName = "buddhike"
 
     front_page_content = ["posts"] # Equivalent to the default value, add page bundle names to include them on the front page.
 
