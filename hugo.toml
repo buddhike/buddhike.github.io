@@ -16,7 +16,7 @@ disqusShortName = "buddhike"
     brand_image = "/img/me.jpeg"    # path to the image shown in the sidebar
     description = "Random musings on Software Development" # Used as default meta description if not specified in front matter
     dark_mode = false                      # optional - defaults to false
-    # favicon = "favicon.png"             # path to favicon (defaults to favicon.png)
+    favicon = "/img/favicon.png"             # path to favicon (defaults to favicon.png)
 
     front_page_content = ["posts"] # Equivalent to the default value, add page bundle names to include them on the front page.
 
@@ -91,6 +91,7 @@ disqusShortName = "buddhike"
                                           # For this to work though og_image and brand_url must be a path inside the assets directory
                                           # e.g. /assets/images/site/og-image.png becomes images/site/og-image.png
     # publisher_icon = ""                 # path to publisher icon - defaults to favicon, used in schema
+    og_image = "/img/me.jpeg"
 
 [taxonomies]
     series = 'series'
