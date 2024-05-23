@@ -8,8 +8,6 @@ keywords = ["streaming", "streaming-processing", "flink", "temporal-join"]
 tags = ["streaming", "streaming-processing", "flink", "temporal-join"]
 +++
 
-# Temporal join in Apache Flink
-
 ## Background
 
 Event time based temporal join in Flink are handy when we want to join two streams at a common point in time. In this blog post I'm going to discuss how temporal joins work in Flink (as of v1.18). This study is based on `TemporalRowTimeJoinOperator` [implementation](https://github.com/apache/flink/blob/547e4b53ebe36c39066adcf3a98123a1f7890c15/flink-table/flink-table-runtime/src/main/java/org/apache/flink/table/runtime/operators/join/temporal/TemporalRowTimeJoinOperator.java#L4).
